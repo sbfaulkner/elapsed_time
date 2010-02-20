@@ -9,7 +9,7 @@ module ActiveRecord
       def elapsed_time(*attr_names)
         attr_names.each do |attr_name|
           method_name = "parse_#{attr_name}_elapsed_time"
-          class_eval <<-METHOD
+          class_eval <<-METHOD, __FILE__, (__LINE__+1)
             def #{method_name}
               self.#{attr_name} = #{attr_name}_before_type_cast.parse_elapsed_time unless #{attr_name}_before_type_cast.nil?
             end
