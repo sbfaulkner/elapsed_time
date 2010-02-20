@@ -1,0 +1,6 @@
+"en":
+  datetime:
+    prompts:
+      hours:    "Hours"
+      minutes:  "Minutes"
+      second:   "Seconds"

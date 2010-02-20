@@ -23,4 +23,5 @@ module ActiveRecord
 end
 
 ActiveRecord::Base.send :extend, ActiveRecord::ElapsedTime::ClassMethods
-      
+
+I18n.load_path << "#{File.dirname(__FILE__)}/elapsed_time/locale/en.yml"
