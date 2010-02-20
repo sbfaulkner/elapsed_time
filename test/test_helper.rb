@@ -28,6 +28,7 @@ class ActiveSupport::TestCase
     ActiveRecord::Schema.define(:version => 1) do
       create_table :jobs do |t|
         t.integer :estimate
+        t.timestamps
       end
     end
   ensure

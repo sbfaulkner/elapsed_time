@@ -19,6 +19,24 @@ class HelpersTest < ActionView::TestCase
     assert_equal '3 hours, 25 minutes and 45 seconds', elapsed_time(12345, false)
   end
 
+  def test_time_select
+    @job = Job.new(:created_at => Time.at(12345))
+
+    expected = %(<select id="job_created_at_4i" name="job[created_at(4i)]">\n)
+    0.upto(23) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 22}>#{sprintf("%02d", i)}</option>\n) }
+    expected << "</select>\n"
+    expected << " : "
+    expected << %(<select id="job_created_at_5i" name="job[created_at(5i)]">\n)
+    0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
+    expected << "</select>\n"
+    expected << " : "
+    expected << %(<select id="job_created_at_6i" name="job[created_at(6i)]">\n)
+    0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 45}>#{sprintf("%02d", i)}</option>\n) }
+    expected << "</select>\n"
+
+    assert_dom_equal expected, time_select(:job, :created_at, :ignore_date => true, :include_seconds => true)
+  end
+
   def test_elapsed_time_select
     @job = Job.new(:estimate => 12345)
 
