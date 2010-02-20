@@ -1,32 +1,12 @@
 require 'test_helper'
 
-class Job < ActiveRecord::Base
-  elapsed_time :estimate
-  validates_elapsed_time_of :estimate, :allow_nil => true
-end
-
 class ValidationsTest < ActiveSupport::TestCase
   def setup
-    stdout = $stdout
-
-    ActiveRecord::Base.logger
-
-    # AR keeps printing annoying schema statements
-    $stdout = StringIO.new
-
-    ActiveRecord::Schema.define(:version => 1) do
-      create_table :jobs do |t|
-        t.integer :estimate
-      end
-    end
-  ensure
-    $stdout = stdout
+    setup_db
   end
 
   def teardown
-    ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.drop_table(table)
-    end
+    teardown_db
   end
 
   def test_elapsed_time
