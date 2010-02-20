@@ -6,11 +6,16 @@ module ElapsedTime
     #    => 3600
     #    "1 day, 10 hours, 17 minutes and 36 seconds".parse_elapsed_time
     #    => 123456
-    def parse_elapsed_time
+    def parse_elapsed_time(options = {})
+      options.symbolize_keys!
+
+      hours_per_day = options[:hours_per_day] || 24
+      unit_of_time = options[:unit] || :seconds
+
       scanner = StringScanner.new self.strip.downcase.gsub(/(\s+and\s+|\s*,\s*)/, ' ')
-  
+
       elapsed_time = nil
-  
+
       while scanner.scan /([0-9]+(\.[0-9]*)?)\s*/
         duration = scanner[1].to_f
 
@@ -35,7 +40,34 @@ module ElapsedTime
         elapsed_time = (elapsed_time || 0) + duration
       end
 
-      elapsed_time || raise(ArgumentError, "unrecognized format for elapsed time")
+      raise(ArgumentError, "unrecognized format for elapsed time") unless elapsed_time
+
+      case unit_of_time.to_sym
+      when :days
+        elapsed_time /= hours_per_day.hours.to_f
+      when :hours
+        elapsed_time /= 1.hour.to_f
+      when :minutes
+        elapsed_time /= 1.minute.to_f
+      when :seconds
+        elapsed_time
+      else
+        raise(ArgumentError, "unit should be one of :days, :hours, :minutes or :seconds; got #{unit_of_time}")
+      end
+      elapsed_time.round
+    end
+    alias_method :parse_elapsed_seconds, :parse_elapsed_time
+
+    def parse_elapsed_minutes(options = {})
+      parse_elapsed_time(options.merge(:unit => :minutes))
+    end
+
+    def parse_elapsed_hours(options = {})
+      parse_elapsed_time(options.merge(:unit => :hours))
+    end
+
+    def parse_elapsed_days(options = {})
+      parse_elapsed_time(options.merge(:unit => :days))
     end
   end
 end
