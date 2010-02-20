@@ -16,7 +16,11 @@ Add support for converting an English representation of elapsed time into second
       validates_elapsed_time_of :estimate, :allow_nil => true
     end
 
+## TODO
+
+* documentation
+
 ## Legal
 
 **Author:** S. Brent Faulkner <brentf@unwwwired.net>  
-**License:** Copyright &copy; 2008 unwwwired.net, released under the MIT license
+**License:** Copyright &copy; 2008-2010 unwwwired.net, released under the MIT license
