@@ -17,7 +17,8 @@ module ElapsedTime
 
       elapsed_time = nil
 
-      while scanner.scan /([0-9]+(\.[0-9]*)?)\s*/
+      while ! scanner.scan(/([0-9]*(?:\.[0-9]*)?)\s*/).blank?
+        break if scanner[1].blank?
         duration = scanner[1].to_f
 
         if scanner.scan(/([a-z]+)\s*/)
