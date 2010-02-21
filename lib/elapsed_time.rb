@@ -1,5 +1,6 @@
 require 'elapsed_time/string'
 require 'elapsed_time/numeric'
+require 'elapsed_time/parse'
 require 'elapsed_time/validations'
 require 'elapsed_time/helpers'
 

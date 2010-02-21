@@ -1,9 +1,5 @@
 module ElapsedTime
   module NumericMethods
-    def parse_elapsed_time(options = {})
-      self
-    end
-
     # Converts a numeric value representing a number of seconds to a string describing an elapsed time.
     #
     #    1234.to_elapsed_seconds
