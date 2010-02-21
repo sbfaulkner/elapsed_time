@@ -11,6 +11,7 @@ module ElapsedTime
     #    123456.to_elapsed_seconds
     #    => "1 day, 10 hours, 17 minutes and 36 seconds"
     def to_elapsed_seconds
+      return '' if zero?
       minutes,seconds = divmod(60)
       hours,minutes = minutes.divmod(60)
       days,hours = hours.divmod(24)
@@ -18,14 +19,17 @@ module ElapsedTime
     end
 
     def to_elapsed_minutes
+      return '' if zero?
       minutes.to_elapsed_seconds
     end
 
     def to_elapsed_hours
+      return '' if zero?
       hours.to_elapsed_seconds
     end
 
     def to_elapsed_days
+      return '' if zero?
       days.to_elapsed_seconds
     end
 
@@ -33,7 +37,7 @@ module ElapsedTime
     alias_method :to_elapsed_time, :to_elapsed_seconds
 
     def enumerate(singular)
-      "#{self} #{self == 1 ? singular : singular.pluralize}" if self > 0
+      "#{self} #{self == 1 ? singular : singular.pluralize}" unless zero?
     end
   end
 end

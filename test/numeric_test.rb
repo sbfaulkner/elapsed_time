@@ -21,6 +21,22 @@ class NumericTest < ActiveSupport::TestCase
     assert_equal '12 days', 12.to_elapsed_days
   end
 
+  def test_zero_elapsed_seconds
+    assert_equal '', 0.to_elapsed_seconds
+  end
+
+  def test_zero_elapsed_minutes
+    assert_equal '', 0.to_elapsed_minutes
+  end
+
+  def test_zero_elapsed_hours
+    assert_equal '', 0.to_elapsed_hours
+  end
+
+  def test_zero_elapsed_days
+    assert_equal '', 0.to_elapsed_days
+  end
+
   def test_parse_elapsed_time
     assert_equal 12, 12.parse_elapsed_time
   end
