@@ -38,99 +38,99 @@ class HelpersTest < ActionView::TestCase
   end
 
   def test_elapsed_time_select
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, :elapsed_time => true)
+    assert_dom_equal expected, time_select(:job, :actual_seconds, :elapsed_time => true)
   end
 
   def test_elapsed_time_select_with_seconds
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_6i" name="job[estimate(6i)]">\n)
+    expected << %(<select id="job_actual_seconds_6i" name="job[actual_seconds(6i)]">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 45}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, :elapsed_time => true, :include_seconds => true)
+    assert_dom_equal expected, time_select(:job, :actual_seconds, :elapsed_time => true, :include_seconds => true)
   end
 
   def test_elapsed_time_select_with_html_options
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]" class="selector">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]" class="selector">\n)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]" class="selector">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]" class="selector">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, {:elapsed_time => true}, :class => 'selector')
+    assert_dom_equal expected, time_select(:job, :actual_seconds, {:elapsed_time => true}, :class => 'selector')
   end
 
   def test_elapsed_time_select_with_separator
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << %(<span class="time-separator">:</span>)
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, :elapsed_time => true, :time_separator => '<span class="time-separator">:</span>')
+    assert_dom_equal expected, time_select(:job, :actual_seconds, :elapsed_time => true, :time_separator => '<span class="time-separator">:</span>')
   end
 
   def test_elapsed_time_select_with_default_prompt
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     expected << %(<option value=\"\">Hours</option>)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     expected << %(<option value=\"\">Minutes</option>)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, :elapsed_time => true, :prompt => true)
+    assert_dom_equal expected, time_select(:job, :actual_seconds, :elapsed_time => true, :prompt => true)
   end
 
   def test_elapsed_time_select_with_custom_prompt
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     expected << %(<option value=\"\">Choose hours</option>)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     expected << %(<option value=\"\">Choose minutes</option>)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
-    assert_dom_equal expected, time_select(:job, :estimate, :elapsed_time => true, :prompt => {:hour => 'Choose hours', :minute => 'Choose minutes'})
+    assert_dom_equal expected, time_select(:job, :actual_seconds, :elapsed_time => true, :prompt => {:hour => 'Choose hours', :minute => 'Choose minutes'})
   end
 
   def test_elapsed_time_select_should_not_change_passed_options_hash
-    @job = Job.new(:estimate => 12345)
+    @job = Job.new(:actual_seconds => 12345)
 
     options = {
       :default => { :hour => 23, :minute => 30, :second => 1 },
@@ -139,7 +139,7 @@ class HelpersTest < ActionView::TestCase
       :include_seconds => true,
       :elapsed_time => true
     }
-    time_select(:job, :estimate, options)
+    time_select(:job, :actual_seconds, options)
   
     # note: the literal hash is intentional to show that the actual options hash isn't modified
     #       don't change this!
@@ -153,17 +153,17 @@ class HelpersTest < ActionView::TestCase
   end
 
   def test_elapsed_time_select_within_fields_for
-    job = Job.new(:estimate => 12345)
+    job = Job.new(:actual_seconds => 12345)
 
     fields_for :job, job do |f|
-      concat f.time_select :estimate, :elapsed_time => true
+      concat f.time_select :actual_seconds, :elapsed_time => true
     end
 
-    expected = %(<select id="job_estimate_4i" name="job[estimate(4i)]">\n)
+    expected = %(<select id="job_actual_seconds_4i" name="job[actual_seconds(4i)]">\n)
     0.upto(99) { |i| expected << %(<option value="#{sprintf("%d", i)}"#{' selected="selected"' if i == 3}>#{sprintf("%d", i)}</option>\n) }
     expected << "</select>\n"
     expected << " : "
-    expected << %(<select id="job_estimate_5i" name="job[estimate(5i)]">\n)
+    expected << %(<select id="job_actual_seconds_5i" name="job[actual_seconds(5i)]">\n)
     0.upto(59) { |i| expected << %(<option value="#{sprintf("%02d", i)}"#{' selected="selected"' if i == 25}>#{sprintf("%02d", i)}</option>\n) }
     expected << "</select>\n"
 
