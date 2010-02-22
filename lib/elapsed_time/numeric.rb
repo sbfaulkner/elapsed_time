@@ -11,7 +11,7 @@ module ElapsedTime
       minutes,seconds = divmod(60)
       hours,minutes = minutes.divmod(60)
       days,hours = hours.divmod(24)
-      [ days.enumerate('day'), hours.enumerate('hour'), minutes.enumerate('minute'), seconds.enumerate('second') ].compact.to_sentence :last_word_connector => I18n.translate(:'support.array.two_words_connector')
+      [ days.enumerate(:day), hours.enumerate(:hour), minutes.enumerate(:minute), seconds.enumerate(:second) ].compact.to_sentence :last_word_connector => I18n.translate('support.array.two_words_connector')
     end
 
     def to_elapsed_minutes
@@ -32,8 +32,8 @@ module ElapsedTime
     # alias for legacy compatability
     alias_method :to_elapsed_time, :to_elapsed_seconds
 
-    def enumerate(singular)
-      "#{self} #{self == 1 ? singular : singular.pluralize}" unless zero?
+    def enumerate(type)
+      I18n.translate(type, :scope => 'datetime.units', :count => self) unless zero?
     end
   end
 end
