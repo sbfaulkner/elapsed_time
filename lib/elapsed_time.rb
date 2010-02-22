@@ -5,15 +5,19 @@ require 'elapsed_time/parse'
 require 'elapsed_time/validations'
 require 'elapsed_time/helpers'
 
+I18n.load_path << "#{File.dirname(__FILE__)}/elapsed_time/locale/en.yml"
+
 module ActiveRecord
   module ElapsedTime
     module ClassMethods
       def elapsed_time(*attr_names)
+        options = attr_names.last.is_a?(Hash) ? attr_names.pop : {}
+        unit = options[:unit] || 'seconds'
         attr_names.each do |attr_name|
-          method_name = "parse_#{attr_name}_elapsed_time"
+          method_name = "parse_#{attr_name}_elapsed_#{unit}"
           class_eval <<-METHOD, __FILE__, (__LINE__+1)
             def #{method_name}
-              self.#{attr_name} = #{attr_name}_before_type_cast.parse_elapsed_time unless #{attr_name}_before_type_cast.nil?
+              self.#{attr_name} = #{attr_name}_before_type_cast.parse_elapsed_#{unit} unless #{attr_name}_before_type_cast.nil?
             end
             protected :#{method_name}
           METHOD
@@ -25,5 +29,3 @@ module ActiveRecord
 end
 
 ActiveRecord::Base.send :extend, ActiveRecord::ElapsedTime::ClassMethods
-
-I18n.load_path << "#{File.dirname(__FILE__)}/elapsed_time/locale/en.yml"
