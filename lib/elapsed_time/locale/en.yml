@@ -1,4 +1,12 @@
 "en":
+  activerecord:
+    errors:
+      messages:
+        elapsed_time:
+          greater_than:             "must be more than {{count}}"
+          greater_than_or_equal_to: "must be at least {{count}}"
+          less_than:                "must be less than {{count}}"
+          less_than_or_equal_to:    "must be no more than {{count}}"
   datetime:
     prompts:
       hours:    "Hours"

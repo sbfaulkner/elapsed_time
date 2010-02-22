@@ -11,8 +11,9 @@ require File.join(File.dirname(__FILE__), '..', 'init')
 
 class Job < ActiveRecord::Base
   elapsed_time :estimated_minutes, :unit => :minutes
+  validates_elapsed_time_of :estimated_minutes, :allow_nil => true, :greater_than => 15, :less_than => 14400, :unit => :minutes
   elapsed_time :actual_seconds
-  validates_elapsed_time_of :estimated_minutes, :actual_seconds, :allow_nil => true
+  validates_elapsed_time_of :actual_seconds, :allow_nil => true, :greater_than_or_equal_to => 15, :less_than_or_equal_to => 14400, :unit => :minutes
 end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")

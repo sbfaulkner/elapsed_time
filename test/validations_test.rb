@@ -44,4 +44,48 @@ class ValidationsTest < ActiveSupport::TestCase
     assert job.save, job.errors.full_messages.to_sentence
     assert_equal 83, job.estimated_minutes
   end
+
+  def test_elapsed_time_less_than
+    job = Job.new(:estimated_minutes => 14399)
+    assert job.save, job.errors.full_messages.to_sentence
+  end
+
+  def test_elapsed_time_not_less_than
+    job = Job.new(:estimated_minutes => 14400)
+    assert !job.save, 'saved with invalid value'
+    assert_equal 'must be less than 14400 minutes', job.errors.on(:estimated_minutes)
+  end
+
+  def test_elapsed_time_greater_than
+    job = Job.new(:estimated_minutes => 16)
+    assert job.save, job.errors.full_messages.to_sentence
+  end
+
+  def test_elapsed_time_not_greater_than
+    job = Job.new(:estimated_minutes => 15)
+    assert !job.save, 'saved with invalid value'
+    assert_equal 'must be more than 15 minutes', job.errors.on(:estimated_minutes)
+  end
+
+  def test_elapsed_time_less_than_or_equal_to
+    job = Job.new(:actual_seconds => 14400)
+    assert job.save, job.errors.full_messages.to_sentence
+  end
+
+  def test_elapsed_time_not_less_than_or_equal_to
+    job = Job.new(:actual_seconds => 14401)
+    assert !job.save, 'saved with invalid value'
+    assert_equal 'must be no more than 14400 minutes', job.errors.on(:actual_seconds)
+  end
+
+  def test_elapsed_time_greater_than_or_equal_to
+    job = Job.new(:actual_seconds => 15)
+    assert job.save, job.errors.full_messages.to_sentence
+  end
+
+  def test_elapsed_time_not_greater_than_or_equal_to
+    job = Job.new(:actual_seconds => 14)
+    assert !job.save, 'saved with invalid value'
+    assert_equal 'must be at least 15 minutes', job.errors.on(:actual_seconds)
+  end
 end
